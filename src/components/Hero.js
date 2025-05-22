@@ -51,7 +51,7 @@ const Hero = () => {
         </h2>
         
         <p className="text-lg sm:text-xl text-blue-100 max-w-3xl mx-auto mb-10">
-          With 3+ years of experience in banking software testing, I specialize in ensuring 
+          With 4+ years of experience in banking software testing, I specialize in ensuring 
           flawless functionality and security for financial applications through meticulous 
           manual and automation testing.
         </p>
