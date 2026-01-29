@@ -1,65 +1,116 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { FaJava, FaJira, FaDatabase } from "react-icons/fa";
-import { SiSelenium, SiPostman, SiApachejmeter, SiAppium } from "react-icons/si";
+import { FaJava, FaJira, FaDatabase, FaCode, FaCogs, FaBug, FaFlask, FaServer } from "react-icons/fa";
+import { SiSelenium, SiPostman, SiApachejmeter, SiAppium, SiJenkins } from "react-icons/si";
 
 const Skills = () => {
-    const skills = [
-        { name: "Manual Testing", level: 95, color: "#4ade80", icon: <FaJava /> }, // Using generic icon or finding better specific one
-        { name: "Java", level: 85, color: "#f87171", icon: <FaJava /> },
-        { name: "Selenium", level: 90, color: "#60a5fa", icon: <SiSelenium /> },
-        { name: "Appium", level: 80, color: "#c084fc", icon: <SiAppium /> },
-        { name: "API Testing (Postman)", level: 90, color: "#fb923c", icon: <SiPostman /> },
-        { name: "JIRA", level: 95, color: "#2563eb", icon: <FaJira /> },
-        { name: "SQL", level: 75, color: "#facc15", icon: <FaDatabase /> },
-        { name: "JMeter", level: 70, color: "#a855f7", icon: <SiApachejmeter /> },
+    const skillCategories = [
+        {
+            title: "Core Competencies",
+            icon: <FaBug className="text-rose-400" />,
+            skills: [
+                { name: "Manual Testing", level: 95, color: "#f43f5e" },
+                { name: "Automation Testing", level: 90, color: "#fb7185" },
+                { name: "API Testing", level: 90, color: "#fda4af" },
+                { name: "Mobile App Testing", level: 85, color: "#fecdd3" },
+                { name: "Vendor Management", level: 80, color: "#fca5a5" },
+            ]
+        },
+        {
+            title: "Tools & Frameworks",
+            icon: <FaCogs className="text-blue-400" />,
+            skills: [
+                { name: "Selenium", level: 90, icon: <SiSelenium />, color: "#60a5fa" },
+                { name: "Appium", level: 80, icon: <SiAppium />, color: "#a78bfa" },
+                { name: "JIRA", level: 95, icon: <FaJira />, color: "#2563eb" },
+                { name: "JBoss", level: 75, icon: <FaServer />, color: "#ef4444" },
+                { name: "Postman", level: 90, icon: <SiPostman />, color: "#fb923c" },
+                { name: "JMeter", level: 70, icon: <SiApachejmeter />, color: "#a855f7" },
+                { name: "Jenkins", level: 75, icon: <SiJenkins />, color: "#ef4444" },
+            ]
+        },
+        {
+            title: "Languages & Database",
+            icon: <FaCode className="text-emerald-400" />,
+            skills: [
+                { name: "Java", level: 85, icon: <FaJava />, color: "#f87171" },
+                { name: "SQL", level: 75, icon: <FaDatabase />, color: "#facc15" },
+                { name: "TestNG", level: 85, icon: <FaFlask />, color: "#ef4444" },
+            ]
+        }
     ];
 
     return (
-        <div className="py-20 bg-dark-900 relative">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="skills" className="py-24 bg-dark-900 relative overflow-hidden">
+            {/* Background Decorative Elements */}
+            <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+                <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-primary-900/10 rounded-full blur-[100px]"></div>
+                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-900/10 rounded-full blur-[100px]"></div>
+            </div>
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="text-center mb-16"
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="text-center mb-20"
                 >
-                    <h2 className="text-4xl font-bold text-white mb-4">Technical Expertise</h2>
-                    <p className="text-gray-400 max-w-2xl mx-auto">
-                        A comprehensive toolset developed over 4+ years of rigorous banking software testing.
+                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                        Technical <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">Expertise</span>
+                    </h2>
+                    <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
+                        A comprehensive toolset developed over 4+ years of rigorous banking software testing, ensuring reliability and performance.
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {skills.map((skill, index) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {skillCategories.map((category, catIndex) => (
                         <motion.div
-                            key={index}
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            className="bg-dark-800/50 backdrop-blur-sm border border-white/5 rounded-xl p-6 hover:bg-dark-800/80 transition-colors"
+                            key={catIndex}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: catIndex * 0.2 }}
+                            className="bg-white/5 backdrop-blur-sm border border-white/5 rounded-2xl p-8 hover:bg-white/10 transition-all duration-300 hover:shadow-xl hover:shadow-primary-500/10 group"
                         >
-                            <div className="flex items-center justify-between mb-4">
-                                <div className="flex items-center gap-3">
-                                    <span className="text-2xl text-gray-300">{skill.icon}</span>
-                                    <h3 className="text-lg font-semibold text-white">{skill.name}</h3>
+                            <div className="flex items-center gap-4 mb-8">
+                                <div className="p-3 bg-white/5 rounded-xl text-2xl group-hover:scale-110 transition-transform duration-300">
+                                    {category.icon}
                                 </div>
-                                <span className="text-sm font-medium text-gray-400">{skill.level}%</span>
+                                <h3 className="text-xl font-bold text-white">{category.title}</h3>
                             </div>
-                            <div className="w-full bg-dark-700 rounded-full h-2.5 overflow-hidden">
-                                <motion.div
-                                    initial={{ width: 0 }}
-                                    whileInView={{ width: `${skill.level}%` }}
-                                    transition={{ duration: 1, delay: 0.5 }}
-                                    className="h-2.5 rounded-full shadow-[0_0_10px_rgba(0,0,0,0.3)]"
-                                    style={{ backgroundColor: skill.color }}
-                                />
+
+                            <div className="space-y-6">
+                                {category.skills.map((skill, skillIndex) => (
+                                    <div key={skillIndex}>
+                                        <div className="flex justify-between items-center mb-2">
+                                            <div className="flex items-center gap-2">
+                                                {skill.icon && <span className="text-slate-400 text-lg">{skill.icon}</span>}
+                                                <span className="text-slate-200 font-medium">{skill.name}</span>
+                                            </div>
+                                            <span className="text-slate-500 text-sm">{skill.level}%</span>
+                                        </div>
+                                        <div className="h-2 bg-dark-700/50 rounded-full overflow-hidden">
+                                            <motion.div
+                                                initial={{ width: 0 }}
+                                                whileInView={{ width: `${skill.level}%` }}
+                                                viewport={{ once: true }}
+                                                transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
+                                                className="h-full rounded-full relative"
+                                                style={{ backgroundColor: skill.color }}
+                                            >
+                                                <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
+                                            </motion.div>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </motion.div>
                     ))}
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 
