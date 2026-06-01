@@ -4,35 +4,63 @@ import { FaExternalLinkAlt, FaTools, FaTimes, FaRobot, FaMobileAlt, FaLaptopCode
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
+  const [activeTab, setActiveTab] = useState("All");
+
+  const categories = ["All", "AI & Full-Stack", "QA & Automation"];
 
   const projects = [
     {
       title: "MyResumAI",
-      category: "Featured",
-      description: "AI-powered resume & cover letter builder for India & Germany.",
+      subtitle: "AI-Powered Resume Builder & Analytics",
+      category: "AI & Full-Stack",
+      featured: true,
+      description: "A comprehensive AI-driven resume builder and intelligence platform featuring a real-time job matching engine, ATS score calculator, and dynamic multi-template generation.",
       icon: <FaRobot className="text-4xl text-teal-400" />,
       details: {
         duration: "2024 - Present",
-        tools: "React, OpenAI API, Tailwind CSS, Stripe",
+        tools: "React, Node.js, Express, OpenAI API, MongoDB, Tailwind CSS, Stripe, Redux",
         role: "Full Stack Developer",
         responsibilities: [
-          "Developed an AI-driven engine to generate ATS-friendly resumes and cover letters tailored for specific job markets.",
-          "Implemented real-time content suggestions and grammar checking using NLP.",
-          "Integrated secure payment gateways and user authentication systems.",
-          "Optimized the application for performance and SEO, achieving high Lighthouse scores."
+          "Architected an AI-driven resume profile generator and summary builder tailored to specific job markets using advanced prompt engineering with OpenAI APIs.",
+          "Developed an active crawling job engine that parses, filters, and displays matching job openings across India updated in the last 24 hours.",
+          "Designed and built an automated ATS compliance scorer to evaluate resume structural correctness, readability, and compatibility.",
+          "Created a high-fidelity editor supporting multiple customizable and professionally styled ATS-friendly templates.",
+          "Integrated secure payment structures using Stripe API and user authentication pathways, maintaining 98%+ Lighthouse scores."
         ],
         link: "https://www.myresumai.com/"
       }
     },
     {
+      title: "Hashkey360",
+      subtitle: "AI Interview & HR Benchmarking Portal",
+      category: "AI & Full-Stack",
+      featured: true,
+      description: "An enterprise-grade HR Benchmarking and automated screening ecosystem featuring a dynamic AI interview system, automated calling, and job-description matching engine.",
+      icon: <FaLaptopCode className="text-4xl text-cyan-400" />,
+      details: {
+        duration: "2024 - Present",
+        tools: "React, Node.js, Java, Python, OpenAI API, WebRTC, FastAPI",
+        role: "Lead AI & Full Stack Developer",
+        responsibilities: [
+          "Designed and engineered an automated AI Interview screening engine that triggers dynamic voice conversations with candidates based on job specifications.",
+          "Built a machine learning JD (Job Description) parser that evaluates resumes against JD details, calculating compatibility and suitability percentage scores.",
+          "Leveraged advanced OpenAI prompt engineering to construct an objective feedback system, auto-generating interview metrics and candidate evaluations.",
+          "Integrated calling APIs and WebRTC channels to manage automatic phone screenings and recording workflows seamlessly.",
+          "Managed microservices orchestration spanning Java (backend business logic), Python (AI/ML processing), and Node.js (aggregator tier)."
+        ],
+        link: "#"
+      }
+    },
+    {
       title: "Branch Portal (Assisted Module)",
       client: "Capital Small Finance Bank",
-      description: "Comprehensive banking portal for branch operations.",
+      category: "QA & Automation",
+      description: "Comprehensive banking portal for branch operations, executing end-to-end verification of transaction modules.",
       icon: <FaLaptopCode className="text-4xl text-blue-400" />,
       details: {
         duration: "January 2024 - Present",
-        tools: "Manual Testing, Junit, Jmeter",
-        role: "QA Engineer/Support Engineer",
+        tools: "Manual Testing, JUnit, JMeter",
+        role: "QA Engineer / Support Engineer",
         responsibilities: [
           "Executed comprehensive manual test cases ensuring 100% functional coverage.",
           "Documented mobile banking features and user interactions for enhanced UX.",
@@ -44,7 +72,8 @@ const Projects = () => {
     {
       title: "Internet Banking",
       client: "Capital Small Finance Bank",
-      description: "Secure and robust internet banking platform.",
+      category: "QA & Automation",
+      description: "Secure and robust internet banking platform, featuring extensive test automation frameworks.",
       icon: <FaLaptopCode className="text-4xl text-purple-400" />,
       details: {
         duration: "June 2022 - Present",
@@ -61,7 +90,8 @@ const Projects = () => {
     {
       title: "Mobile Banking App",
       client: "Capital Small Finance Bank",
-      description: "Feature-rich mobile banking application for Android & iOS.",
+      category: "QA & Automation",
+      description: "Feature-rich mobile banking application for Android & iOS with bulletproof transaction flows.",
       icon: <FaMobileAlt className="text-4xl text-green-400" />,
       details: {
         duration: "March 2023 - Present",
@@ -78,7 +108,8 @@ const Projects = () => {
     {
       title: "CSFB Mobile Banking API",
       client: "Capital Small Finance Bank",
-      description: "Backend API infrastructure for mobile banking services.",
+      category: "QA & Automation",
+      description: "Backend API infrastructure for mobile banking services, covering secure transaction and vendor integrations.",
       icon: <FaMobileAlt className="text-4xl text-orange-400" />,
       details: {
         duration: "March 2023 - Present",
@@ -96,7 +127,8 @@ const Projects = () => {
     {
       title: "Core Banking System (CBS)",
       client: "Capital Small Finance Bank",
-      description: "Core infrastructure managing banking operations.",
+      category: "QA & Automation",
+      description: "Core infrastructure managing banking operations, processing automated batch files and accounting.",
       icon: <FaTools className="text-4xl text-red-400" />,
       details: {
         duration: "Sep 2022 - Feb 2023",
@@ -111,6 +143,10 @@ const Projects = () => {
       }
     }
   ];
+
+  const filteredProjects = activeTab === "All"
+    ? projects
+    : projects.filter(p => p.category === activeTab);
 
   return (
     <section id="projects" className="min-h-screen bg-dark-900 py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
@@ -131,11 +167,37 @@ const Projects = () => {
           Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-purple-400">Projects</span>
         </h2>
         <p className="text-slate-400 max-w-2xl mx-auto">
-          Showcasing my work in AI, Banking, and Automation.
+          Showcasing my work in AI development, Full-Stack ecosystems, and Banking Automation.
         </p>
       </motion.div>
 
+      {/* Category Tabs */}
+      <div className="flex justify-center items-center gap-3 mb-16 flex-wrap z-10 relative">
+        {categories.map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`relative px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 cursor-pointer overflow-hidden ${
+              activeTab === tab
+                ? "text-dark-900 z-10"
+                : "text-slate-400 hover:text-white border border-white/5 hover:border-white/10 bg-white/5 backdrop-blur-md"
+            }`}
+          >
+            {activeTab === tab && (
+              <motion.div
+                layoutId="activeTabGlow"
+                className="absolute inset-0 bg-gradient-to-r from-primary-400 to-cyan-400 rounded-full -z-10"
+                transition={{ type: "spring", stiffness: 380, damping: 30 }}
+              />
+            )}
+            {tab}
+          </button>
+        ))}
+      </div>
+
+      {/* Projects Grid */}
       <motion.div
+        layout
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -144,46 +206,57 @@ const Projects = () => {
         }}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto relative z-10"
       >
-        {projects.map((project, index) => (
-          <motion.div
-            key={index}
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-            }}
-            whileHover={{ y: -10 }}
-            className={`group relative bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl cursor-pointer overflow-hidden transition-all duration-300 hover:border-primary-500/50 hover:shadow-2xl hover:shadow-primary-500/10 ${project.title === 'MyResumAI' ? 'ring-1 ring-primary-500/50 bg-gradient-to-br from-white/5 to-primary-900/20' : ''}`}
-            onClick={() => setSelectedProject(project)}
-          >
-            {/* Hover Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary-600/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <AnimatePresence mode="popLayout">
+          {filteredProjects.map((project, index) => (
+            <motion.div
+              layout
+              key={project.title}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.4 }}
+              whileHover={{ y: -10 }}
+              className={`group relative bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl cursor-pointer overflow-hidden transition-all duration-300 hover:border-primary-500/50 hover:shadow-2xl hover:shadow-primary-500/10 ${
+                project.featured ? 'ring-1 ring-primary-500/50 bg-gradient-to-br from-white/5 to-primary-900/20' : ''
+              }`}
+              onClick={() => setSelectedProject(project)}
+            >
+              {/* Hover Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary-600/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-            <div className="relative z-10">
-              <div className="flex justify-between items-start mb-4">
-                <div className="p-3 bg-white/5 rounded-xl group-hover:bg-white/10 transition-colors">
-                  {project.icon}
+              <div className="relative z-10">
+                <div className="flex justify-between items-start mb-4">
+                  <div className="p-3 bg-white/5 rounded-xl group-hover:bg-white/10 transition-colors">
+                    {project.icon}
+                  </div>
+                  {project.featured && (
+                    <span className="px-3 py-1 text-xs font-bold text-dark-900 bg-primary-400 rounded-full animate-pulse shadow-md shadow-primary-500/20">
+                      Featured AI
+                    </span>
+                  )}
+                  {!project.featured && project.category && (
+                    <span className="px-2.5 py-0.5 text-[10px] font-semibold text-slate-300 bg-white/5 rounded-full border border-white/5">
+                      {project.category}
+                    </span>
+                  )}
                 </div>
-                {project.category && (
-                  <span className="px-3 py-1 text-xs font-bold text-dark-900 bg-primary-400 rounded-full animate-pulse">
-                    {project.category}
-                  </span>
-                )}
-              </div>
 
-              <h3 className="text-xl font-bold text-white mb-2 group-hover:text-primary-300 transition-colors">
-                {project.title}
-              </h3>
-              {project.client && <p className="text-slate-500 text-xs uppercase tracking-wider mb-2">{project.client}</p>}
-              <p className="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3">
-                {project.description}
-              </p>
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-primary-300 transition-colors">
+                  {project.title}
+                </h3>
+                {project.subtitle && <p className="text-teal-400 text-xs font-medium tracking-wide mb-2">{project.subtitle}</p>}
+                {project.client && <p className="text-slate-500 text-xs uppercase tracking-wider mb-2">{project.client}</p>}
+                <p className="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3">
+                  {project.description}
+                </p>
 
-              <div className="flex items-center text-primary-400 text-sm font-medium group-hover:translate-x-1 transition-transform">
-                Read More <FaExternalLinkAlt className="ml-2 w-3 h-3" />
+                <div className="flex items-center text-primary-400 text-sm font-medium group-hover:translate-x-1 transition-transform">
+                  Read More <FaExternalLinkAlt className="ml-2 w-3 h-3" />
+                </div>
               </div>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </motion.div>
 
       {/* Project Details Modal */}
@@ -205,7 +278,7 @@ const Projects = () => {
             >
               <button
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors bg-white/5 p-2 rounded-full hover:bg-white/10"
+                className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors bg-white/5 p-2 rounded-full hover:bg-white/10 cursor-pointer"
               >
                 <FaTimes />
               </button>
@@ -216,7 +289,8 @@ const Projects = () => {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-white">{selectedProject.title}</h3>
-                  {selectedProject.client && <p className="text-slate-400">{selectedProject.client}</p>}
+                  {selectedProject.subtitle && <p className="text-teal-400 text-sm font-medium">{selectedProject.subtitle}</p>}
+                  {selectedProject.client && <p className="text-slate-400 text-sm">{selectedProject.client}</p>}
                 </div>
               </div>
 
@@ -238,7 +312,7 @@ const Projects = () => {
                     <span className="text-slate-500 text-sm block mb-1">Tech Stack</span>
                     <div className="flex flex-wrap gap-2">
                       {selectedProject.details.tools.split(',').map((tool, i) => (
-                        <span key={i} className="px-2 py-1 bg-white/5 rounded text-xs text-primary-300 border border-white/5">
+                        <span key={i} className="px-2.5 py-1 bg-white/5 rounded text-xs text-primary-300 border border-white/5">
                           {tool.trim()}
                         </span>
                       ))}
@@ -249,29 +323,31 @@ const Projects = () => {
                 <div>
                   <h4 className="font-bold text-white mb-3 flex items-center gap-2">
                     <span className="w-1 h-5 bg-primary-500 rounded-full"></span>
-                    Key Responsibilities
+                    Key Contributions & Implementations
                   </h4>
                   <ul className="space-y-3">
                     {selectedProject.details.responsibilities.map((item, i) => (
                       <li key={i} className="flex items-start gap-3 text-slate-400">
                         <span className="text-primary-500 mt-1.5 text-xs">●</span>
-                        <span className="leading-relaxed">{item}</span>
+                        <span className="leading-relaxed text-sm sm:text-base">{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="pt-6 mt-2 border-t border-white/10">
-                  <a
-                    href={selectedProject.details.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center px-6 py-3 bg-primary-600 hover:bg-primary-500 text-white font-medium rounded-xl transition-all w-full sm:w-auto hover:shadow-lg hover:shadow-primary-600/20 group"
-                  >
-                    Visit Project
-                    <FaExternalLinkAlt className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </a>
-                </div>
+                {selectedProject.details.link && selectedProject.details.link !== "#" && (
+                  <div className="pt-6 mt-2 border-t border-white/10">
+                    <a
+                      href={selectedProject.details.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center px-6 py-3 bg-primary-600 hover:bg-primary-500 text-white font-medium rounded-xl transition-all w-full sm:w-auto hover:shadow-lg hover:shadow-primary-600/20 group"
+                    >
+                      Visit Project
+                      <FaExternalLinkAlt className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </a>
+                  </div>
+                )}
               </div>
             </motion.div>
           </motion.div>
@@ -281,4 +357,4 @@ const Projects = () => {
   );
 };
 
-export default Projects;
+export default Projects;
